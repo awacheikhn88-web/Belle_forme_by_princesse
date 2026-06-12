@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Belle Forme by Princesse | Bien-être & Nutrition</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Bibliothèque haute précision pour transformer la facture en Photo -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans overflow-hidden">
+
+    <!-- Écran de Bienvenue -->
+    <div id="ecran-bienvenue" class="fixed inset-0 z-[100] bg-gradient-to-br from-rose-50 to-amber-50 flex flex-col items-center justify-center text-center px-4 transition-opacity duration-700">
+        <div class="text-amber-500 text-6xl mb-4 drop-shadow-md">
+            <i class="fas fa-crown"></i>
+        </div>
+        <h1 class="text-5xl md:text-7xl font-extrabold text-rose-600 mb-2 tracking-tight">Belle Forme</h1>
+        <h2 class="text-3xl text-amber-500 mb-8 font-light italic">by Princesse</h2>
+        <p class="text-lg text-gray-600 mb-10 max-w-lg">
+            Bienvenue dans votre espace dédié à la beauté de votre silhouette. Découvrez nos secrets pour une prise de masse saine et nos cures minceur.
+        </p>
+        <button onclick="entrerSurSite()" class="bg-rose-500 hover:bg-rose-600 text-white border-2 border-amber-400 px-8 py-4 rounded-full font-bold text-xl shadow-[0_0_15px_rgba(251,191,36,0.5)] transition duration-300 transform hover:scale-105 flex items-center gap-3">
+            Découvrir la Boutique <i class="fas fa-arrow-right"></i>
+        </button>
+    </div>
+
+    <!-- Bouton Panier Flottant -->
+    <button onclick="ouvrirPanier()" class="fixed bottom-6 right-6 z-40 bg-rose-500 hover:bg-rose-600 text-white p-4 rounded-full shadow-2xl transition transform hover:scale-110 flex items-center justify-center border-2 border-amber-300">
+        <i class="fas fa-shopping-basket text-2xl"></i>
+        <span id="cart-badge-float" class="absolute -top-2 -right-2 bg-amber-400 text-gray-900 text-xs font-bold w-6 h-6 rounded-full flex items-center justify-center shadow">0</span>
+    </button>
+
+    <!-- Contenu Principal -->
+    <div id="contenu-principal">
+        
+        <!-- Navigation -->
+        <nav class="bg-white shadow-md sticky top-0 z-50 border-b-2 border-amber-200">
+            <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+                <a href="#" class="text-2xl font-bold text-rose-500 tracking-wide flex items-center gap-2">
+                    <i class="fas fa-crown text-amber-400 text-xl"></i> Belle Forme <span class="text-gray-900 text-sm md:text-xl">by Princesse</span>
+                </a>
+                <div class="flex items-center gap-4 md:gap-6">
+                    <a href="#produits" class="text-gray-600 hover:text-rose-500 font-semibold text-sm md:text-base transition">Boutique</a>
+                    <a href="#revendeurs" class="text-gray-600 hover:text-rose-500 font-semibold text-sm md:text-base transition">Revendeurs</a>
+                    <button onclick="ouvrirPanier()" class="relative text-gray-700 hover:text-rose-500 font-bold flex items-center gap-1 transition">
+                        <i class="fas fa-shopping-bag text-lg"></i>
+                        <span id="cart-badge-nav" class="bg-rose-500 text-white text-[10px] px-1.5 py-0.5 rounded-full font-extrabold">0</span>
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Hero Header -->
+        <header class="relative text-white py-24 px-4 text-center bg-gray-900" style="background-image: url('https://images.unsplash.com/photo-1517836357463-d25dfeac3438?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80'); background-size: cover; background-position: center;">
+            <div class="absolute inset-0 bg-black bg-opacity-60"></div>
+            <div class="relative z-10 max-w-3xl mx-auto">
+                <h1 class="text-4xl md:text-6xl font-extrabold mb-6 text-amber-400 drop-shadow-lg">Booste ta Prise de Masse Sainement !</h1>
+                <p class="text-xl mb-8 text-gray-200 font-light">Découvrez notre gamme exclusive de céréales riches en calories, nos thés minceur et nos sirops stimulants pour atteindre vos objectifs.</p>
+                <a href="#produits" class="bg-amber-500 hover:bg-amber-600 text-white px-8 py-4 rounded-full font-bold text-lg shadow-lg transition duration-300">Voir le Catalogue</a>
+            </div>
+        </header>
+
+        <!-- Section Produits -->
+        <section id="produits" class="py-16 max-w-7xl mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 relative inline-block">
+                    Notre Collection Complète
+                    <div class="h-1 w-20 bg-amber-400 mx-auto mt-3 rounded"></div>
+                </h2>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Produit 1 -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 hover:border-amber-300 transition duration-300 flex flex-col justify-between">
+                    <div>
+                        <div class="h-64 w-full overflow-hidden bg-gray-100 border-b border-gray-100">
+                            <img src="https://images.unsplash.com/photo-1517881561111-30de77708093?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Pack Céréales" class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-6">
+                            <span class="bg-amber-100 text-amber-800 text-xs font-bold px-3 py-1 rounded-full uppercase">Prise de masse</span>
+                            <h3 class="text-2xl font-bold mt-3 mb-2">Le Pack Céréales</h3>
+                            <p class="text-gray-600 text-sm">Mélange d'avoine, fruits secs et graines enrichies en protéines. Parfait pour un petit-déjeuner hypercalorique.</p>
+                        </div>
+                    </div>
+                    <div class="p-6 pt-0">
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-xl font-extrabold text-gray-900">15 000 FCFA</span>
+                            <span class="text-gray-500 text-xs">Pot 1kg</span>
+                        </div>
+                        <button onclick="ajouterAuPanier('Le Pack Céréales', 15000)" class="w-full bg-emerald-500 hover:bg-emerald-600 text-white text-center py-3 rounded-xl font-bold block transition duration-300">
+                            <i class="fas fa-cart-plus mr-2"></i> Ajouter au panier
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Produit 2 -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 hover:border-amber-300 transition duration-300 flex flex-col justify-between">
+                    <div>
+                        <div class="h-64 w-full overflow-hidden bg-gray-100 border-b border-gray-100">
+                            <img src="https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Sirop Appétit" class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-6">
+                            <span class="bg-amber-100 text-amber-800 text-xs font-bold px-3 py-1 rounded-full uppercase">Stimulant</span>
+                            <h3 class="text-2xl font-bold mt-3 mb-2">Sirop Appétit +</h3>
+                            <p class="text-gray-600 text-sm">Sirop aux plantes naturelles pour stimuler l'appétit et faciliter l'absorption des calories quotidiennes.</p>
+                        </div>
+                    </div>
+                    <div class="p-6 pt-0">
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-xl font-extrabold text-gray-900">8 000 FCFA</span>
+                            <span class="text-gray-500 text-xs">250ml</span>
+                        </div>
+                        <button onclick="ajouterAuPanier('Sirop Appétit +', 8000)" class="w-full bg-emerald-500 hover:bg-emerald-600 text-white text-center py-3 rounded-xl font-bold block transition duration-300">
+                            <i class="fas fa-cart-plus mr-2"></i> Ajouter au panier
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Produit 3 -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 hover:border-amber-300 transition duration-300 flex flex-col justify-between">
+                    <div>
+                        <div class="h-64 w-full overflow-hidden bg-gray-100 border-b border-gray-100">
+                            <img src="https://images.unsplash.com/photo-1597481499750-3e6b22637e12?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Thé Minceur" class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-6">
+                            <span class="bg-green-100 text-green-800 text-xs font-bold px-3 py-1 rounded-full uppercase">Perte de poids</span>
+                            <h3 class="text-2xl font-bold mt-3 mb-2">Thé Minceur Détox</h3>
+                            <p class="text-gray-600 text-sm">Infusion aux herbes purifiantes pour éliminer les toxines, dégonfler le ventre et accélérer le métabolisme.</p>
+                        </div>
+                    </div>
+                    <div class="p-6 pt-0">
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-xl font-extrabold text-gray-900">10 000 FCFA</span>
+                            <span class="text-gray-500 text-xs">Cure 14 jours</span>
+                        </div>
+                        <button onclick="ajouterAuPanier('Thé Minceur Détox', 10000)" class="w-full bg-emerald-500 hover:bg-emerald-600 text-white text-center py-3 rounded-xl font-bold block transition duration-300">
+                            <i class="fas fa-cart-plus mr-2"></i> Ajouter au panier
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Produit 4 -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 hover:border-amber-300 transition duration-300 flex flex-col justify-between">
+                    <div>
+                        <div class="h-64 w-full overflow-hidden bg-gray-100 border-b border-gray-100">
+                            <img src="https://images.unsplash.com/photo-1608248597481-496100c80836?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Crème" class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-6">
+                            <span class="bg-rose-100 text-rose-800 text-xs font-bold px-3 py-1 rounded-full uppercase">Soins Corps</span>
+                            <h3 class="text-2xl font-bold mt-3 mb-2">Crème Raffermissante</h3>
+                            <p class="text-gray-600 text-sm">Crème de massage ciblée pour lisser la peau, réduire la cellulite et tonifier les zones rebelles.</p>
+                        </div>
+                    </div>
+                    <div class="p-6 pt-0">
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-xl font-extrabold text-gray-900">12 000 FCFA</span>
+                            <span class="text-gray-500 text-xs">Pot 200ml</span>
+                        </div>
+                        <button onclick="ajouterAuPanier('Crème Raffermissante', 12000)" class="w-full bg-emerald-500 hover:bg-emerald-600 text-white text-center py-3 rounded-xl font-bold block transition duration-300">
+                            <i class="fas fa-cart-plus mr-2"></i> Ajouter au panier
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Produit 5 -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 hover:border-amber-300 transition duration-300 flex flex-col justify-between">
+                    <div>
+                        <div class="h-64 w-full overflow-hidden bg-gray-100 border-b border-gray-100">
+                            <img src="https://images.unsplash.com/photo-151738277536-f5f99be501cd?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Gaine" class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-6">
+                            <span class="bg-gray-200 text-gray-800 text-xs font-bold px-3 py-1 rounded-full uppercase">Accessoire</span>
+                            <h3 class="text-2xl font-bold mt-3 mb-2">Gaine Sculptante</h3>
+                            <p class="text-gray-600 text-sm">Ceinture invisible sous les vêtements pour affiner la taille instantanément et maintenir le dos.</p>
+                        </div>
+                    </div>
+                    <div class="p-6 pt-0">
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-xl font-extrabold text-gray-900">18 000 FCFA</span>
+                            <span class="text-gray-500 text-xs">Toutes Tailles</span>
+                        </div>
+                        <button onclick="ajouterAuPanier('Gaine Sculptante', 18000)" class="w-full bg-emerald-500 hover:bg-emerald-600 text-white text-center py-3 rounded-xl font-bold block transition duration-300">
+                            <i class="fas fa-cart-plus mr-2"></i> Ajouter au panier
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Produit 6 -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden transition duration-300 flex flex-col justify-between border-2 border-amber-400 relative">
+                    <span class="absolute top-4 right-4 bg-amber-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase shadow">Pack VIP</span>
+                    <div>
+                        <div class="h-64 w-full overflow-hidden bg-amber-50 border-b border-amber-100">
+                            <img src="https://images.unsplash.com/photo-1579758629938-03607ccdbaba?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Combo" class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-6">
+                            <span class="bg-purple-100 text-purple-800 text-xs font-bold px-3 py-1 rounded-full uppercase">Duo Ultime</span>
+                            <h3 class="text-2xl font-bold mt-3 mb-2">Combo Masse Extrême</h3>
+                            <p class="text-gray-600 text-sm">L'association surpuissante du Pack Céréales et du Sirop Appétit + pour des résultats maximaux et rapides.</p>
+                        </div>
+                    </div>
+                    <div class="p-6 pt-0">
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-xl font-extrabold text-amber-600">22 000 FCFA</span>
+                            <span class="text-gray-500 text-xs">Cure complète</span>
+                        </div>
+                        <button onclick="ajouterAuPanier('Combo Masse Extrême', 22000)" class="w-full bg-amber-500 hover:bg-amber-600 text-white text-center py-3 rounded-xl font-bold block transition duration-300 shadow-md">
+                            <i class="fas fa-cart-plus mr-2"></i> Ajouter au panier
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Revendeurs -->
+        <section id="revendeurs" class="bg-amber-50 py-16 border-t border-b border-amber-100">
+            <div class="max-w-5xl mx-auto px-4 text-center">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Nos Points de Vente & Revendeurs Officiels</h2>
+                <p class="text-gray-600 mb-10 max-w-xl mx-auto">Contactez directement nos revendeurs certifiés pour un retrait rapide de vos produits.</p>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-amber-200 flex flex-col justify-between">
+                        <div>
+                            <div class="text-rose-500 text-2xl mb-2"><i class="fas fa-map-marker-alt"></i></div>
+                            <h4 class="font-bold text-lg text-gray-900">Grand Mbao</h4>
+                        </div>
+                        <a href="tel:+221788267842" class="mt-4 inline-block bg-gray-100 hover:bg-amber-100 text-gray-800 font-semibold py-2 px-3 rounded-lg text-xs transition border border-gray-200">
+                            <i class="fas fa-phone-alt text-amber-500 mr-1"></i> 78 826 78 42
+                        </a>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-amber-200 flex flex-col justify-between">
+                        <div>
+                            <div class="text-rose-500 text-2xl mb-2"><i class="fas fa-map-marker-alt"></i></div>
+                            <h4 class="font-bold text-lg text-gray-900">Thiès</h4>
+                        </div>
+                        <a href="tel:+221776790988" class="mt-4 inline-block bg-gray-100 hover:bg-amber-100 text-gray-800 font-semibold py-2 px-3 rounded-lg text-xs transition border border-gray-200">
+                            <i class="fas fa-phone-alt text-amber-500 mr-1"></i> 77 679 09 88
+                        </a>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-amber-200 flex flex-col justify-between">
+                        <div>
+                            <div class="text-rose-500 text-2xl mb-2"><i class="fas fa-map-marker-alt"></i></div>
+                            <h4 class="font-bold text-lg text-gray-900">Touba</h4>
+                        </div>
+                        <a href="tel:+221768744574" class="mt-4 inline-block bg-gray-100 hover:bg-amber-100 text-gray-800 font-semibold py-2 px-3 rounded-lg text-xs transition border border-gray-200">
+                            <i class="fas fa-phone-alt text-amber-500 mr-1"></i> 76 874 45 74
+                        </a>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-amber-200 flex flex-col justify-between">
+                        <div>
+                            <div class="text-rose-500 text-2xl mb-2"><i class="fas fa-map-marker-alt"></i></div>
+                            <h4 class="font-bold text-lg text-gray-900">Rufisque</h4>
+                        </div>
+                        <a href="tel:+221774884791" class="mt-4 inline-block bg-gray-100 hover:bg-amber-100 text-gray-800 font-semibold py-2 px-3 rounded-lg text-xs transition border border-gray-200">
+                            <i class="fas fa-phone-alt text-amber-500 mr-1"></i> 77 488 47 91
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="bg-gray-900 text-gray-400 py-8 border-t border-gray-800 text-center text-sm">
+            <p class="mb-2 text-white font-semibold">Belle Forme by Princesse &copy; 2026. Tous droits réservés.</p>
+        </footer>
+    </div>
+
+    <!-- Fenêtre Modale de Commande -->
+    <div id="modal-checkout" class="fixed inset-0 bg-black/60 z-[110] hidden flex items-center justify-center p-4 backdrop-blur-sm overflow-y-auto">
+        <div class="bg-white rounded-2xl max-w-md w-full shadow-2xl p-5 relative my-4 transition-all">
+            
+            <button onclick="fermerCheckout()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-xl">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <!-- VUE 1 : LE PANIER -->
+            <div id="view-cart" class="hidden">
+                <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+                    <i class="fas fa-shopping-basket text-rose-500"></i> Votre Panier
+                </h3>
+                <div id="cart-items-list" class="space-y-3 max-h-60 overflow-y-auto pr-1"></div>
+                <div class="border-t border-gray-100 mt-4 pt-4 flex justify-between items-center">
+                    <span class="text-base font-bold text-gray-700">Total Panier :</span>
+                    <span id="cart-view-total" class="text-2xl font-extrabold text-rose-600">0 FCFA</span>
+                </div>
+                <button onclick="passerAuFormulaire()" class="w-full bg-rose-500 hover:bg-rose-600 text-white font-bold py-3 rounded-xl mt-6 shadow flex items-center justify-center gap-2">
+                    Valider et Continuer <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+
+            <!-- VUE 2 : LE FORMULAIRE -->
+            <div id="view-form" class="hidden">
+                <h3 class="text-2xl font-bold text-gray-900 mb-2 flex items-center gap-2">
+                    <i class="fas fa-shipping-bag text-rose-500"></i> Finaliser la commande
+                </h3>
+                <form onsubmit="envoyerCommande(event)" class="space-y-4">
+                    <div class="bg-amber-50 p-3 rounded-xl border border-amber-200 flex justify-between items-center text-sm">
+                        <span class="font-bold text-gray-700">Montant à régler :</span>
+                        <span id="form-total-montant" class="font-extrabold text-rose-600 text-base">0 FCFA</span>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-gray-600 mb-1">Votre Nom Complet *</label>
+                        <input type="text" id="client-nom" required placeholder="Ex: Awa Ndiaye" class="w-full border border-gray-300 rounded-xl p-3 text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-gray-600 mb-1">Choisir un Revendeur Proche *</label>
+                        <select id="client-revendeur" required class="w-full border border-gray-300 rounded-xl p-3 text-sm bg-white">
+                            <option value="">-- Sélectionnez votre secteur --</option>
+                            <option value="Grand Mbao">Grand Mbao</option>
+                            <option value="Thiès">Thiès</option>
+                            <option value="Touba">Touba</option>
+                            <option value="Rufisque">Rufisque</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-gray-600 mb-1">Option de Livraison *</label>
+                        <select id="client-livraison-option" required class="w-full border border-gray-300 rounded-xl p-3 text-sm bg-white">
+                            <option value="">-- Mode de livraison --</option>
+                            <option value="À domicile">Livraison à domicile</option>
+                            <option value="Retrait Point Relais">Retrait chez le revendeur</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-gray-600 mb-1">Adresse exacte *</label>
+                        <textarea id="client-adresse" required rows="2" placeholder="Ex: Quartier Escale" class="w-full border border-gray-300 rounded-xl p-3 text-sm"></textarea>
+                    </div>
+
+                    <!-- AJOUT : Choix du Mode de Paiement -->
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-gray-600 mb-1">Mode de Règlement *</label>
+                        <select id="client-paiement-methode" required onchange="gererChangementPaiement()" class="w-full border border-gray-300 rounded-xl p-3 text-sm bg-white">
+                            <option value="">-- Sélectionnez un moyen de paiement --</option>
+                            <option value="Wave">Wave</option>
+                            <option value="Orange Money">Orange Money</option>
+                        </select>
+                    </div>
+
+                    <!-- Zone d'affichage dynamique du lien/bouton de paiement -->
+                    <div id="zone-lien-paiement" class="hidden transition-all duration-300">
+                        <div class="bg-amber-50 border border-amber-200 p-3 rounded-xl text-center">
+                            <p class="text-xs text-gray-700 font-medium mb-2" id="texte-consigne-paiement"></p>
+                            <a id="bouton-lien-externe-paiement" href="#" target="_blank" class="inline-flex items-center gap-2 text-white font-bold px-4 py-2 rounded-lg text-xs shadow transition transform hover:scale-105">
+                                <i class="fas fa-paper-plane"></i> Ouvrir l'application pour payer
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="bg-rose-50 p-3.5 rounded-xl border border-rose-100">
+                        <h4 class="text-xs font-bold uppercase text-rose-800 mb-1"><i class="fas fa-lock"></i> Capture d'écran du paiement *</h4>
+                        <input type="file" id="client-screenshot" accept="image/*" required class="w-full text-xs">
+                    </div>
+                    <div class="flex gap-2 pt-2">
+                        <button type="button" onclick="ouvrirPanier()" class="w-1/3 bg-gray-100 text-gray-700 font-bold py-3 rounded-xl text-sm">Retour</button>
+                        <button type="submit" id="checkout-submit-btn" disabled class="w-2/3 bg-emerald-500 text-white font-bold py-3 rounded-xl text-sm">Confirmer</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- VUE 3 : LA FACTURE EN PHOTO (CAPTURE AREA) -->
+            <div id="view-receipt" class="hidden">
+                <div id="receipt-card-capture" class="bg-white p-5 rounded-xl border border-gray-300 text-gray-800 shadow-sm">
+                    <!-- Entête Facture -->
+                    <div class="flex justify-between items-start border-b-2 border-rose-500 pb-4 mb-4">
+                        <div>
+                            <h4 class="text-xl font-extrabold text-rose-600 tracking-tight flex items-center gap-1.5">
+                                <i class="fas fa-crown text-amber-500 text-base"></i> BELLE FORME
+                            </h4>
+                            <p class="text-[11px] text-amber-600 italic font-medium">by Princesse — Bien-être & Nutrition</p>
+                        </div>
+                        <div class="text-right">
+                            <span class="bg-rose-100 text-rose-800 text-[10px] uppercase font-black px-2.5 py-1 rounded">FACTURE</span>
+                            <p class="text-[11px] font-bold text-gray-700 mt-1" id="receipt-ref">BF-XXXXXX</p>
+                            <p class="text-[9px] text-gray-400 font-medium" id="receipt-date">00/00/2026 00:00</p>
+                        </div>
+                    </div>
+
+                    <!-- Infos Client & Livraison -->
+                    <div class="grid grid-cols-2 gap-2 text-[11px] mb-4 bg-gray-50 p-2.5 rounded-lg border border-gray-100">
+                        <div>
+                            <span class="text-gray-400 block font-semibold uppercase text-[9px]">Facturé à :</span>
+                            <span id="receipt-client" class="font-bold text-gray-800">---</span>
+                            <span class="text-gray-500 block mt-1">Secteur : <strong id="receipt-revendeur" class="text-gray-700">---</strong></span>
+                        </div>
+                        <div>
+                            <span class="text-gray-400 block font-semibold uppercase text-[9px]">Détails Logistique :</span>
+                            <span class="text-gray-500 block">Livraison : <strong id="receipt-option" class="text-gray-700">---</strong></span>
+                            <span class="text-gray-500 block truncate">Adresse : <em id="receipt-adresse" class="text-gray-700 not-italic">---</em></span>
+                        </div>
+                    </div>
+
+                    <!-- Tableau Détaillé des Produits de la Facture -->
+                    <div class="mb-4">
+                        <table class="w-full text-left text-[11px] border-collapse">
+                            <thead>
+                                <tr class="border-b border-gray-200 text-gray-400 font-bold uppercase text-[9px]">
+                                    <th class="py-1">Désignation Produit</th>
+                                    <th class="py-1 text-center w-10">Qté</th>
+                                    <th class="py-1 text-right w-20">P.U</th>
+                                    <th class="py-1 text-right w-24">Total</th>
+                                </tr>
+                            </thead>
+                            <tbody id="receipt-table-body" class="divide-y divide-gray-100 font-medium text-gray-700">
+                                <!-- Lignes insérées par JS -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Total & Moyen de paiement sur la Facture -->
+                    <div class="border-t-2 border-gray-100 pt-2 grid grid-cols-2 gap-2 bg-amber-50/50 p-2 rounded-lg items-center">
+                        <div>
+                            <span class="text-[9px] font-bold text-gray-400 uppercase block">Règlement sélectionné :</span>
+                            <span id="receipt-paiement-methode" class="text-xs font-extrabold text-gray-800 flex items-center gap-1">---</span>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-[9px] font-bold text-gray-400 uppercase block">Net à Payer :</span>
+                            <span id="receipt-prix" class="text-base font-black text-rose-600">---</span>
+                        </div>
+                    </div>
+
+                    <!-- Preuve de Paiement Intégrée -->
+                    <div class="mt-4 pt-3 border-t border-dashed border-gray-200">
+                        <span class="text-[10px] font-bold text-gray-500 block mb-1.5"><i class="fas fa-paperclip"></i> Justificatif de transfert rattaché à la commande :</span>
+                        <img id="receipt-img-preview" src="" alt="Validation Transfert" class="w-full max-h-36 object-contain rounded-lg border bg-gray-50">
+                    </div>
+                </div>
+
+                <!-- Actions de validation -->
+                <div class="space-y-2.5 mt-4">
+                    <button onclick="telechargerRecuEnPhoto()" class="w-full bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 rounded-xl transition flex items-center justify-center gap-2 text-sm shadow">
+                        <i class="fas fa-camera"></i> 1. Enregistrer la Facture en Photo
+                    </button>
+                    
+                    <button id="receipt-whatsapp-btn" class="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-3.5 rounded-xl transition flex items-center justify-center gap-2 text-base shadow">
+                        <i class="fab fa-whatsapp text-xl"></i> 2. Envoyer au Revendeur
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts Logiciels -->
+    <script>
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwbQLgbw90BtjUB99hXsleSJ7EYhulGL3D_GtgGMYvfpwtZIBQG-CSEZmzHHg783mjsoQ/exec";
+        
+        const NUMEROS_REVENDEURS = {
+            "Grand Mbao": "221788267842",
+            "Thiès": "221776790988",
+            "Touba": "221768744574",
+            "Rufisque": "221774884791"
+        };
+
+        // Configuration des liens et designs de paiement
+        const LIENS_PAIEMENT = {
+            "Wave": {
+                "lien": "https://wave.me/m/221788267842", 
+                "texte": "Cliquez ci-dessous pour ouvrir Wave. Le transfert est automatiquement configuré vers le revendeur de Grand Mbao.",
+                "classeBtn": "bg-cyan-500 hover:bg-cyan-600 text-white font-extrabold"
+            },
+            "Orange Money": {
+                "lien": "https://VOTRE_LIEN_MARCHAND_ORANGE_MONEY", 
+                "texte": "Cliquez ci-dessous pour ouvrir Orange Money et finaliser le paiement.",
+                "classeBtn": "bg-orange-500 hover:bg-orange-600 text-white font-extrabold"
+            }
+        };
+
+        function entrerSurSite() {
+            document.getElementById('ecran-bienvenue').classList.add('opacity-0');
+            setTimeout(() => {
+                document.getElementById('ecran-bienvenue').classList.add('hidden');
+                document.body.classList.remove('overflow-hidden');
+                document.body.classList.add('overflow-y-auto');
+            }, 700);
+        }
+
+        let panier = [];
+        let localImageSrc = "";
+
+        document.getElementById('client-screenshot').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                document.getElementById('checkout-submit-btn').disabled = false;
+                localImageSrc = URL.createObjectURL(file);
+            } else {
+                document.getElementById('checkout-submit-btn').disabled = true;
+            }
+        });
+
+        function formatPrix(nombre) {
+            return nombre.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + " FCFA";
+        }
+
+        function ajouterAuPanier(nom, prixUnitaire) {
+            const itemExistant = panier.find(item => item.nom === nom);
+            if (itemExistant) { itemExistant.quantite++; } 
+            else { panier.push({ nom: nom, prix: prixUnitaire, quantite: 1 }); }
+            mettreAJourPanierUI();
+            ouvrirPanier();
+        }
+
+        function modifierQuantite(nom, changement) {
+            const item = panier.find(item => item.nom === nom);
+            if (item) {
+                item.quantite += changement;
+                if (item.quantite <= 0) { panier = panier.filter(i => i.nom !== nom); }
+            }
+            mettreAJourPanierUI();
+            if (panier.length === 0) fermerCheckout();
+            else afficherListePanier();
+        }
+
+        function calculerTotal() { return panier.reduce((sum, item) => sum + (item.prix * item.quantite), 0); }
+
+        function mettreAJourPanierUI() {
+            const totalArticles = panier.reduce((sum, item) => sum + item.quantite, 0);
+            document.getElementById('cart-badge-nav').innerText = totalArticles;
+            document.getElementById('cart-badge-float').innerText = totalArticles;
+        }
+
+        function afficherListePanier() {
+            const conteneur = document.getElementById('cart-items-list');
+            conteneur.innerHTML = "";
+            panier.forEach(item => {
+                conteneur.innerHTML += `
+                    <div class="flex justify-between items-center bg-gray-50 p-3 rounded-xl border">
+                        <div class="max-w-[60%]">
+                            <h5 class="font-bold text-gray-800 text-sm truncate">${item.nom}</h5>
+                            <span class="text-xs text-rose-500 font-semibold">${formatPrix(item.prix)}</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="flex items-center border rounded-lg bg-white overflow-hidden">
+                                <button onclick="modifierQuantite('${item.nom}', -1)" class="px-2 py-0.5 text-gray-600 hover:bg-gray-100 font-bold text-xs">-</button>
+                                <span class="px-2 text-xs font-bold text-gray-800">${item.quantite}</span>
+                                <button onclick="modifierQuantite('${item.nom}', 1)" class="px-2 py-0.5 text-gray-600 hover:bg-gray-100 font-bold text-xs">+</button>
+                            </div>
+                            <span class="text-xs font-extrabold text-gray-900 w-20 text-right">${formatPrix(item.prix * item.quantite)}</span>
+                        </div>
+                    </div>
+                `;
+            });
+            document.getElementById('cart-view-total').innerText = formatPrix(calculerTotal());
+        }
+
+        function ouvrirPanier() {
+            if (panier.length === 0) { alert("Votre panier est vide !"); return; }
+            afficherListePanier();
+            document.getElementById('view-cart').classList.remove('hidden');
+            document.getElementById('view-form').classList.add('hidden');
+            document.getElementById('view-receipt').classList.add('hidden');
+            document.getElementById('modal-checkout').classList.remove('hidden');
+        }
+
+        function passerAuFormulaire() {
+            document.getElementById('form-total-montant').innerText = formatPrix(calculerTotal());
+            document.getElementById('view-cart').classList.add('hidden');
+            document.getElementById('view-form').classList.remove('hidden');
+        }
+
+        function fermerCheckout() { document.getElementById('modal-checkout').classList.add('hidden'); }
+
+        // Gestion de l'affichage des instructions et génération du lien de paiement
+        function gererChangementPaiement() {
+            const methode = document.getElementById('client-paiement-methode').value;
+            const zoneLien = document.getElementById('zone-lien-paiement');
+            const texteConsigne = document.getElementById('texte-consigne-paiement');
+            const boutonLien = document.getElementById('bouton-lien-externe-paiement');
+            const montantTotal = calculerTotal();
+
+            if (methode && LIENS_PAIEMENT[methode]) {
+                texteConsigne.innerText = LIENS_PAIEMENT[methode].texte;
+                
+                // Si c'est Wave, on ajoute dynamiquement le montant au lien
+                if (methode === "Wave") {
+                    boutonLien.href = `${LIENS_PAIEMENT[methode].lien}?amount=${montantTotal}`;
+                } else {
+                    boutonLien.href = LIENS_PAIEMENT[methode].lien;
+                }
+                
+                boutonLien.className = `inline-flex items-center gap-2 px-4 py-2 rounded-lg text-xs shadow transition transform hover:scale-105 ${LIENS_PAIEMENT[methode].classeBtn}`;
+                boutonLien.innerHTML = `<i class="fas fa-wallet"></i> Payer via ${methode} (${formatPrix(montantTotal)})`;
+                zoneLien.classList.remove('hidden');
+            } else {
+                zoneLien.classList.add('hidden');
+            }
+        }
+
+        // Conversion et Téléchargement de l'image de la Facture
+        function telechargerRecuEnPhoto() {
+            const cible = document.getElementById('receipt-card-capture');
+            
+            html2canvas(cible, {
+                useCORS: true,
+                scale: 2.5,
+                backgroundColor: "#ffffff"
+            }).then(canvas => {
+                const imageURI = canvas.toDataURL("image/png");
+                const nomFichier = `Facture-${document.getElementById('receipt-ref').innerText}.png`;
+                
+                const lienVirtuel = document.createElement('a');
+                lienVirtuel.href = imageURI;
+                lienVirtuel.download = nomFichier;
+                document.body.appendChild(lienVirtuel);
+                lienVirtuel.click();
+                document.body.removeChild(lienVirtuel);
+            }).catch(err => {
+                alert("Erreur de conversion de la facture.");
+                console.error(err);
+            });
+        }
+
+        function envoyerCommande(event) {
+            event.preventDefault();
+            
+            const nomClient = document.getElementById('client-nom').value;
+            const revendeurChoisi = document.getElementById('client-revendeur').value;
+            const optionLivraison = document.getElementById('client-livraison-option').value;
+            const adresseClient = document.getElementById('client-adresse').value;
+            const methodePaiement = document.getElementById('client-paiement-methode').value;
+            const numeroDestinataire = NUMEROS_REVENDEURS[revendeurChoisi] || "221774884791";
+            
+            const now = new Date();
+            const dateStr = now.getDate().toString().padStart(2,'0') + (now.getMonth()+1).toString().padStart(2,'0') + now.getFullYear().toString().substring(2);
+            const randomStr = Math.floor(1000 + Math.random() * 9000);
+            const orderReference = `BF-${dateStr}-${randomStr}`;
+            const dateFormatted = now.toLocaleString('fr-FR');
+            
+            let chaineArticlesLog = panier.map(item => `${item.quantite}x ${item.nom}`).join(', ');
+            let tableauLignesHTML = "";
+            let detailWhatsAppText = "";
+
+            panier.forEach(item => {
+                tableauLignesHTML += `
+                    <tr class="border-b border-gray-50 text-gray-800">
+                        <td class="py-2 pr-2 font-semibold">${item.nom}</td>
+                        <td class="py-2 text-center text-gray-500 font-bold">${item.quantite}</td>
+                        <td class="py-2 text-right text-gray-500">${formatPrix(item.prix)}</td>
+                        <td class="py-2 text-right font-bold text-gray-950">${formatPrix(item.prix * item.quantite)}</td>
+                    </tr>
+                `;
+                detailWhatsAppText += `- ${item.quantite}x ${item.nom} (${formatPrix(item.prix * item.quantite)})\n`;
+            });
+            
+            // Enregistrement sur Google Sheets
+            fetch(GOOGLE_SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    reference: orderReference, date: dateFormatted,
+                    client: `${nomClient} [Payé par ${methodePaiement} | Facture: ${chaineArticlesLog}]`,
+                    reseller: revendeurChoisi, delivery: optionLivraison, address: adresseClient
+                })
+            });
+            
+            // Remplissage de la facture papier virtuelle
+            document.getElementById('receipt-ref').innerText = orderReference;
+            document.getElementById('receipt-date').innerText = dateFormatted;
+            document.getElementById('receipt-client').innerText = nomClient;
+            document.getElementById('receipt-table-body').innerHTML = tableauLignesHTML;
+            document.getElementById('receipt-prix').innerText = formatPrix(calculerTotal());
+            document.getElementById('receipt-revendeur').innerText = revendeurChoisi;
+            document.getElementById('receipt-option').innerText = optionLivraison;
+            document.getElementById('receipt-adresse').innerText = adresseClient;
+            
+            // Affichage icône et texte de la méthode sur la facture
+            const iconePaiement = methodePaiement === 'Wave' ? '<i class="fas fa-wallet text-cyan-500"></i>' : '<i class="fas fa-wallet text-orange-500"></i>';
+            document.getElementById('receipt-paiement-methode').innerHTML = `${iconePaiement} ${methodePaiement}`;
+            
+            document.getElementById('receipt-img-preview').src = localImageSrc;
+            
+            // Configuration finale du bouton WhatsApp
+            document.getElementById('receipt-whatsapp-btn').onclick = function() {
+                const messageText = `*NOUVELLE COMMANDE - BELLE FORME*\n` +
+                                    `----------------------------------\n` +
+                                    `*Référence Facture :* ${orderReference}\n\n` +
+                                    `*🛒 Détail des Produits :*\n${detailWhatsAppText}\n` +
+                                    `*💰 Montant Total :* ${formatPrix(calculerTotal())}\n` +
+                                    `*💳 Mode de Règlement :* ${methodePaiement}\n\n` +
+                                    `*👤 Nom de la Cliente :* ${nomClient}\n` +
+                                    `*🏪 Secteur Revendeur :* ${revendeurChoisi}\n` +
+                                    `*🚚 Mode de Réception :* ${optionLivraison}\n` +
+                                    `*📍 Adresse Précise :* ${adresseClient}\n\n` +
+                                    `_⚠️ Action Requise : N'oubliez pas de joindre la photo de la facture téléchargée ainsi que votre capture de transfert ${methodePaiement} à ce message._`;
+                
+                window.open(`https://wa.me/${numeroDestinataire}?text=${encodeURIComponent(messageText)}`, '_blank');
+            };
+            
+            document.getElementById('view-form').classList.add('hidden');
+            document.getElementById('view-receipt').classList.remove('hidden');
+            
+            // Réinitialisation du panier
+            panier = [];
+            mettreAJourPanierUI();
+        }
+    </script>
+</body>
+</html>
