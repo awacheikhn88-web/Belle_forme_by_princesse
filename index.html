@@ -6,6 +6,7 @@
     <title>Belle Forme by Princesse | Bien-être & Nutrition</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <!-- Bibliothèque haute précision pour transformer la facture en Photo -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
@@ -326,7 +327,7 @@
                         <textarea id="client-adresse" required rows="2" placeholder="Ex: Quartier Escale" class="w-full border border-gray-300 rounded-xl p-3 text-sm"></textarea>
                     </div>
 
-                    <!-- AJOUT : Choix du Mode de Paiement -->
+                    <!-- Choix du Mode de Paiement -->
                     <div>
                         <label class="block text-xs font-bold uppercase text-gray-600 mb-1">Mode de Règlement *</label>
                         <select id="client-paiement-methode" required onchange="gererChangementPaiement()" class="w-full border border-gray-300 rounded-xl p-3 text-sm bg-white">
@@ -441,7 +442,7 @@
 
     <!-- Scripts Logiciels -->
     <script>
-        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/library/d/1BQz5d1qxzXHI4G5i_drmFUSzexHy6pzeLQrglQasy2uN4_fls9yTuk5m/9";
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzn0C3X7RiBLCL8uVyA1-vLhQ5jasGGjl-S-eA4y7XHhOcY0wsHM0MrVmGMBQfbe_uEsg/exec";
         
         const NUMEROS_REVENDEURS = {
             "Grand Mbao": "221788267842",
@@ -569,7 +570,6 @@
             if (methode && LIENS_PAIEMENT[methode]) {
                 texteConsigne.innerText = LIENS_PAIEMENT[methode].texte;
                 
-                // Si c'est Wave, on ajoute dynamiquement le montant au lien
                 if (methode === "Wave") {
                     boutonLien.href = `${LIENS_PAIEMENT[methode].lien}?amount=${montantTotal}`;
                 } else {
@@ -624,6 +624,11 @@
             const orderReference = `BF-${dateStr}-${randomStr}`;
             const dateFormatted = now.toLocaleString('fr-FR');
             
+            // ✅ Total capturé immédiatement avant toute réinitialisation du panier
+            const totalCommande = calculerTotal();
+            const totalFormate = formatPrix(totalCommande);
+
+            // ✅ Construction des données produits séparées pour Sheets
             let chaineArticlesLog = panier.map(item => `${item.quantite}x ${item.nom}`).join(', ');
             let tableauLignesHTML = "";
             let detailWhatsAppText = "";
@@ -639,17 +644,22 @@
                 `;
                 detailWhatsAppText += `- ${item.quantite}x ${item.nom} (${formatPrix(item.prix * item.quantite)})\n`;
             });
-            
-            // Enregistrement sur Google Sheets
-            fetch(GOOGLE_SCRIPT_URL, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    reference: orderReference, date: dateFormatted,
-                    client: `${nomClient} [Payé par ${methodePaiement} | Facture: ${chaineArticlesLog}]`,
-                    reseller: revendeurChoisi, delivery: optionLivraison, address: adresseClient
-                })
+
+            // Envoi via GET pour compatibilité totale avec no-cors
+            const params = new URLSearchParams({
+                reference: orderReference,
+                date: dateFormatted,
+                client: nomClient,
+                products: chaineArticlesLog,
+                reseller: revendeurChoisi,
+                delivery: optionLivraison,
+                address: adresseClient,
+                total: totalFormate
+            });
+
+            fetch(GOOGLE_SCRIPT_URL + '?' + params.toString(), {
+                method: 'GET',
+                mode: 'no-cors'
             });
             
             // Remplissage de la facture papier virtuelle
@@ -657,7 +667,7 @@
             document.getElementById('receipt-date').innerText = dateFormatted;
             document.getElementById('receipt-client').innerText = nomClient;
             document.getElementById('receipt-table-body').innerHTML = tableauLignesHTML;
-            document.getElementById('receipt-prix').innerText = formatPrix(calculerTotal());
+            document.getElementById('receipt-prix').innerText = totalFormate;
             document.getElementById('receipt-revendeur').innerText = revendeurChoisi;
             document.getElementById('receipt-option').innerText = optionLivraison;
             document.getElementById('receipt-adresse').innerText = adresseClient;
@@ -674,7 +684,7 @@
                                     `----------------------------------\n` +
                                     `*Référence Facture :* ${orderReference}\n\n` +
                                     `*🛒 Détail des Produits :*\n${detailWhatsAppText}\n` +
-                                    `*💰 Montant Total :* ${formatPrix(calculerTotal())}\n` +
+                                    `*💰 Montant Total :* ${totalFormate}\n` +
                                     `*💳 Mode de Règlement :* ${methodePaiement}\n\n` +
                                     `*👤 Nom de la Cliente :* ${nomClient}\n` +
                                     `*🏪 Secteur Revendeur :* ${revendeurChoisi}\n` +
